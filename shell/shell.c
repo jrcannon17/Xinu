@@ -3,6 +3,7 @@
 #include <xinu.h>
 #include <stdio.h>
 #include "shprototypes.h"
+#include "prodcons.h"
 
 /************************************************************************/
 /* Table of Xinu shell commands and the function associated with each	*/
@@ -22,13 +23,14 @@ const	struct	cmdent	cmdtab[] = {
 	{"ps",		FALSE,	xsh_ps},
 	{"sleep",	FALSE,	xsh_sleep},
 	{"hello",       FALSE,  xsh_hello},
-	{"uptime",	FALSE,	xsh_uptime},
+       	{"prodcons",    FALSE,  xsh_prodcons},
+	{"uptime",	FALSE,	xsh_uptime}, 
 #ifdef GPIO
 	{"led",         FALSE,  xsh_led},
 #endif
 #ifdef ETHER0
-  {"arp",		FALSE,	xsh_arp},
-  {"ipaddr",	FALSE,	xsh_ipaddr},
+        {"arp",		FALSE,	xsh_arp},
+        {"ipaddr",	FALSE,	xsh_ipaddr},
 	{"ping",	FALSE,	xsh_ping},
 	{"udp",		FALSE,	xsh_udpdump},
 	{"udpecho",	FALSE,	xsh_udpecho},
@@ -37,7 +39,7 @@ const	struct	cmdent	cmdtab[] = {
 #ifdef MMU
 	{"test_mmu", 	FALSE, 	xsh_mmu},
 #endif /* MMU */
-  {"?",		FALSE,	xsh_help}
+        {"?",		FALSE,	xsh_help}
 };
 
 uint32	ncmd = sizeof(cmdtab) / sizeof(struct cmdent);
