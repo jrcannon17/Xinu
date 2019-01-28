@@ -43,8 +43,11 @@ shellcmd xsh_prodcons(int nargs, char *args[])
   if (!isNumeric(args[1])) //this will still allow the user to put in a string, but we won't them to know it is wrong
     {
       printf("Must be a numeral.\n");
-      count = atoi(args[1]); // the string is converted into a numberic
+      return 0;
     }
+  
+  count = atoi(args[1]); // the string is converted into a numberic
+    
 //check args[1] if present assign value to count
   
   //create the process producer and consumer and put them in ready queue.
