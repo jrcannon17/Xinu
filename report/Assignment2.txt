@@ -1,8 +1,10 @@
 OS Assignment 2
 
-* Disclaimer Note
+* Disclaimer Note 1 
 Before I answer any questions, there is a problem much bigger than the original problem asked. When the command ‘make’ is  ran, the following error is displayed:
 
+*Disclaimer Note 2:
+Problem was fixed. In the apps folder, there was a duplicate of the produce and consume functions. Deleted skeletons and replaced with ones already made. I have left the answers the same because I believe after running prodcons, they were pretty accurate already. 
 xinu-os@xinuos:~/xinu-S19/compile$ make
 Rebuilding the .defs file
 
@@ -33,7 +35,8 @@ Takes n and creates a produced value based on count, starting from 0
 Consumer
 Takes n and breaks it down as the consumer, again starting from 0 
 Xsh_prodcons.c
-Primary objective of this program is to ready the producer and consumer functions in the queue. Also checks the validation of args*
+Primary objective of this program is to ready the producer and consumer functions in the queue. Also checks the validation of args*. A isNumeric function verifies if the argument is truly numeric or not. Either way, the atoi 
+library function converts the string into an integer regardless if the isNUmeric reads TRUE. 
 
 4. Those who helped me.
 
