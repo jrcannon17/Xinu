@@ -1,0 +1,8 @@
+Assignment 3 
+
+Editors Note
+
+First of all, if it were not for Colin, then this assignment would be incomplete entirely. This was extremely difficult for me; possibly the most difficult I’ve ever been assigned in my entire academic career. I am still unsure what to be doing here and by the end of the semester, I will find a way to implement my portion into the code to make this work. We tried at first to use a static array, but as the weeks progressed, I decided to use a linked list but have yet to implement it into the actual thread process with Colins version of a q struct. If any credit is given, I ask that you give it to him, as he was the one to figure out how to put in the mutex with the multiple consumer semaphors. 
+
+1. This is what we’ve been trying to figure out. How to consume the q in such a way that we can tell which ID is being read and how to lock it, wait until all elements consumed, and then released. 
+2. There are two ways to implement mutexes. One way is to have just one over everything, which I don’t understand. The other, more less proficient way is to have n mutexes where n represents each q. That way, in case two ID’s are the same and being consumed at the same time, this will prevent that from happening. 
