@@ -11,8 +11,10 @@ Last Modified on:
 #include <prodcons.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stream_proc.h>
 
 shellcmd xsh_prodcons(int nargs, char *args[]);
+void stream_proc(int nargs, char *args[]);
 
 shellcmd xsh_run(int nargs, char *args[])
 {
@@ -35,6 +37,12 @@ if ((nargs == 1) || (strncmp(args[1], "list", 5) == 0))
 		  /* simply call the function */
       // 
 xsh_prodcons(nargs, args);
+    }
+
+ if(strncmp(args[0], "stream_proc", 13) == 0) {
+		  /* simply call the function */
+      // 
+void stream_proc(nargs, args);
 
        /* create a process with the function as an entry point. */
 
