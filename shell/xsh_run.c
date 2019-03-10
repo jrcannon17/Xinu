@@ -15,6 +15,7 @@ Last Modified on:
 
 shellcmd xsh_prodcons(int nargs, char *args[]);
 void stream_proc(int nargs, char *args[]);
+void future_test(int nargs, char *args[]);
 
 shellcmd xsh_run(int nargs, char *args[])
 {
@@ -33,7 +34,7 @@ if ((nargs == 1) || (strncmp(args[1], "list", 5) == 0))
     args++;
     nargs--;
 
-    if(strncmp(args[0], "prodcons", 13) == 0) {
+if(strncmp(args[0], "prodcons", 13) == 0) {
 		  /* simply call the function */
       // 
 xsh_prodcons(nargs, args);
@@ -46,6 +47,13 @@ void stream_proc(nargs, args);
 
        /* create a process with the function as an entry point. */
 
-/*resume (create((void *)my_function_2, 4096, 20, "my_func_2", 2, nargs, args);
- */    }
+ }
+if(strncmp(args[0], "future_test", 13) == 0) {
+		  /* simply call the function */
+      // 
+void future_test(nargs, args);
     }
+
+ resume (create(future_test, 4096, 20, "future_test", 2, nargs, args));
+    }
+ 
