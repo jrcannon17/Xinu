@@ -108,6 +108,7 @@ loopback:
 
 /* Configuration and Size Constants */
 
+#define NFUTURE      100  	/*number of future processes		*/
 #define	NPROC	     100	/* number of user processes		*/
 #define	NSEM	     100	/* number of semaphores			*/
 #define	IRQBASE	     32		/* base ivec for IRQ0			*/
