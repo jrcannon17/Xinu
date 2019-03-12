@@ -1,3 +1,13 @@
+/*Filename: future_test.c *
+ *Part of: Futures program assignment *
+ *Created by: Joshua Cannon *
+ *Created on: 03/01/2019 *
+ *Last Modified by: Joshua Cannon *
+ *Last Modified on: 03/11/2019
+ *Notes: MUST change ring val to ring count selected. this will 
+not crash, but it will be revelant. Final val is NULL FOR A REASON!
+DO NOT CHANGE or else the master will get bytes from some other storage location, thus creating an unusually large value and throwing the whole thing off
+ */
 #include <xinu.h>
 #include <stddef.h>
 #include <stdlib.h>
@@ -12,8 +22,8 @@ uint32 future_test(int nargs, char *args[])
 {
   int ring = 0;
   int future_flags = 0;
-  int ring_count = 10;
-  int final_val;
+  int ring_count = 4;
+  int final_val = NULL; //intiazlize to 0
   int i;
 
 #ifndef NFUTURE
@@ -21,7 +31,7 @@ uint32 future_test(int nargs, char *args[])
   return OK;
 #endif
 
-  if (nargs == 2 && strncmp(args[1], "-r", 3) == 0) {
+  if (nargs == 3 && strncmp(args[1], "-r", 2) == 0) {
     ring = 1;
     printf("Producer/consumer process ring\n");
   }
@@ -39,10 +49,10 @@ uint32 future_test(int nargs, char *args[])
       resume( create(future_ring, 1024, 20, "", 2, in, out) );
       in = out;
     }
-    printf("master sets %d\n", ring_count);
+    printf("master sets %d\n", (int)ring_count);
     future_set(first, (char *)&ring_count);
     future_get(out, (char *)&final_val);
-    printf("master gets %d\n", final_val);
+    printf("master gets %d\n", (int)final_val);
     return(OK);
   }
   return(OK);

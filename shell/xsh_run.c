@@ -50,10 +50,7 @@ void stream_proc(nargs, args);
  }
 if(strncmp(args[0], "future_test", 13) == 0) {
 		  /* simply call the function */
-      // 
-void future_test(nargs, args);
+     
+ resume(create(future_test, 4096, 20, "future_test", 2, nargs, args));
     }
-
- resume (create(future_test, 4096, 20, "future_test", 2, nargs, args));
-    }
- 
+}
