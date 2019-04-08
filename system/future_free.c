@@ -14,6 +14,9 @@
 /* sets state of future to FREE */
 syscall future_free(future *f){
 
-  	return freemem((char*)f, sizeof(f));
+    freemem(f->value, f->size);
+    free_queue(f->set_queue);
+    free_queue(f->get_queue);
+    return freemem((char*)f, sizeof(f));
 
 }

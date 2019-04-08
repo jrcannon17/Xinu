@@ -28,6 +28,8 @@ future* future_alloc(int future_flags, uint size){
 	f->size = size;
 	f->state = FUTURE_EMPTY;
 	f->flags = future_flags;
+	f->set_queue = NULL;
+	f->get_queue = NULL;
 
 	return f;
 }

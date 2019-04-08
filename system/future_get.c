@@ -27,23 +27,90 @@ syscall future_get(future *f, char *value) {
 
 mask=disable();
 	if (f->state == FUTURE_FULL){
-	
-	  *value = f->value; 
+	  memcpy(value, f->value, f->size);
+	  //*value = f->value; 
 		restore(mask);
 		return OK; 
 	} 	
-
+ if (f->flags == FUTURE_EXCLUSIVE) {
       	if(f->state == FUTURE_EMPTY){
-       
+
+          f->pid = getpid();
 	  f->state = FUTURE_WAITING;
 	  f->pid=currpid;
 	  suspend(currpid);
-	  *value = f->value;
-	  resched();
-	  //	restore(mask);
-	  //	return SYSERR;
+	  memcpy(value, f->value, f->size);
+	  // *value = f->value;
+	  // resched();
+	}
+ else if(f->state == FUTURE_FULL) {
+   memcpy(value, f->value, f->size);
+   f->state = FUTURE_EMPTY;
+ }
+ else{
+	  	restore(mask);
+	  	return SYSERR;
 }
+ }
+else if (f->flags == FUTURE_SHARED) {
+      if (f->state == FUTURE_EMPTY) {
+          f->pid = getpid();
+          f->state = FUTURE_WAITING;
 
-	restore(mask);
-	return SYSERR;
+          add_to_queue(f, 1);
+          suspend(f->pid);
+          // value = f->value;
+          memcpy(value, f->value, f->size);
+      }
+   
+  else if(f->state == FUTURE_FULL) {
+         memcpy(value, f->value, f->size);
+          //f->state = FUTURE_EMPTY;
+      } else if (f->state == FUTURE_WAITING) {
+        add_to_queue(f, 1);
+        f->pid = getpid();
+        suspend(f->pid);
+        strncpy(value, f->value, f->size);
+      }
+      else {
+          restore(mask);
+          return SYSERR;
+      }
+    } else if (f->flags == FUTURE_QUEUE) {
+      if (f->state == FUTURE_EMPTY) {
+          f->pid = getpid();
+          f->state = FUTURE_WAITING;
+          add_to_queue(f,1);
+          suspend(f->pid);
+          memcpy(value, f->value, f->size);
+      }
+      else if(f->state == FUTURE_FULL) {
+          strncpy(value, f->value, f->size);
+          f->state = FUTURE_EMPTY;
+         
+      } else if (f->state == FUTURE_WAITING) {
+        if (f->set_queue != NULL) {
+          pid32 newpid = get_process(f,0);
+          struct procent* prptr = &proctab[newpid];
+          prptr->prprio = prptr->prprio+1;
+
+          resume(newpid);
+          strncpy(value, f->value, f->size);
+        } else {
+          add_to_queue(f, 1);
+          suspend(getpid());
+          memcpy(value, f->value, f->size);
+        }
+      }
+      else {
+          //printf("fvalue in  else get %d\n", f->value);
+          restore(mask);
+          return SYSERR;
+      }
+ }else{
+  restore(mask);
+  return SYSERR;
+ }
+restore(mask);
+return OK;
 }
