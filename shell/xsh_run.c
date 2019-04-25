@@ -5,16 +5,18 @@ Last Modified by: Joshua Cannon
 Last Modified on: 
 20190131 * Takes an argument to map to a function and run it
 20190206 * Added prodcons for execution. Make threads not established yet
-
- */
+*/
 #include <xinu.h>
 #include <prodcons.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stream_proc.h>
+#include <stream_proc.h> //#include <stream_input.h>
 
 shellcmd xsh_prodcons(int nargs, char *args[]);
-void stream_proc(int nargs, char *args[]);
+void example_function1(int nargs, char *args[]) {
+        printf("In Example Function 1\n");
+}
+//void stream_proc(int nargs, char *args[]);
 void future_test(int nargs, char *args[]);
 
 shellcmd xsh_run(int nargs, char *args[])
@@ -37,20 +39,23 @@ if ((nargs == 1) || (strncmp(args[1], "list", 5) == 0))
 if(strncmp(args[0], "prodcons", 13) == 0) {
 		  /* simply call the function */
       // 
-xsh_prodcons(nargs, args);
-    }
+ xsh_prodcons(nargs, args);
+ } 
 
- if(strncmp(args[0], "stream_proc", 13) == 0) {
+if(strncmp(args[0], "stream_proc",12 ) == 0) {
 		  /* simply call the function */
-      // 
-void stream_proc(nargs, args);
-
-       /* create a process with the function as an entry point. */
-
+   stream_proc(nargs, args);
+  //resume(create(stream_proc, 4096, 20, "stream_proc", 2, nargs, args));
  }
-if(strncmp(args[0], "future_test", 13) == 0) {
+if(strncmp(args[0], "stream_proc_future",12 ) == 0) {
 		  /* simply call the function */
-     
- resume(create(future_test, 4096, 20, "future_test", 2, nargs, args));
-    }
+   stream_proc_future(nargs, args);
+  //resume(create(stream_proc, 4096, 20, "stream_proc", 2, nargs, args));
+ }
+if(strncmp(args[0], "future_test", 12) == 0) {
+		  /* simply call the function */
+  //void future_test(nargs,args);
+  resume(create(future_test, 4096, 20, "future_test", 2, nargs, args));
+   
+ }
 }

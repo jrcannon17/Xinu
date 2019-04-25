@@ -93,7 +93,9 @@ uint32 future_test(int nargs, char *args[])
        /* spawn fib threads and get final value
           TODO - you need to add your code here */
       for (i=0; i <= fib; i++) ffib(i);
-      future_get(fibfut[fib], (char *)&final_fib);
+	//resume(create(fib, 1024, 20, "fibs", 1, i));
+future_get(fibfut[fib], (char *)&final_fib);
+
 
       for (i=0; i <= fib; i++) {
         future_free(fibfut[i]);

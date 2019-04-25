@@ -47,7 +47,7 @@ typedef struct futent
    queue*get_queue;
 } future;
 
-extern struct futent futtab[];
+//extern struct futent futtab[];
 
 /* Interface for system call */
 future* future_alloc(int future_flags, uint size);
@@ -57,10 +57,13 @@ syscall future_set(future*, char *);
 //future_test(int nargs, char *args[]);
 
 /* function prototypes */
+
+void enQueue(future *f, int q_mode);
+pid32 deQueue(future *f, int q_mode);
+void freeQueue(queue *head); 
+
 pid32 get_process(future* f, int which_q);
-
 void add_to_queue(future* f, int which_q);
-
 void free_queue(queue* head);
  
 #endif /* _FUTURE_H_ */

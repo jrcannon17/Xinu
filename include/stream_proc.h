@@ -1,38 +1,52 @@
-/*Global variable for producer consumer*/
-//extern type q[10]; /*this is just declaration*/
-// need to use init to define 
-/* Declare required semaphores */
+#include <future.h>
 
-
-typedef struct queue_lookup {
-  int32 stream_id;
-  sid32 semphr1_id;
-  sid32 semphr2_id;
-  struct data_element* stream;
-  struct data_element* stream_tail;
-  }ql;
- 
-
-/*function Prototype*/
-void data_consumer(int out_time,ql *obj);
-void data_producer(struct data_element * node, ql *details);
-void stream_proc(int nargs, char *args[]) ;
-
-/*struct data_element{ 
-	int ts;	// timestamp
-	int v;	// value
+// Structure to hold the data and a  pointer to the next structure in the linked list
+struct data {
+	int32 time, value;
+	struct data* next;
 };
-*/
-extern int num_streams;
-extern int work_queue ;
-extern int time_window ;
-extern int output_time ;
 
-/*Global variable for producer consumer*/
-extern sid32 mutex;
+// Structure for future implementation
+struct pair {
+	int32 time;
+	int32 value;
+};
 
-/*global pointer for tscdf */
-extern struct tscdf *tscdf_pointer;
- 
-/*function Prototype*/
-void tscdf_run(int count);
+// Structure to hold the information about the semaphores and streams
+struct sem_stream {
+// stream id , key for the lookup
+  	int32 stream_id;
+  // Producer semaphore
+  	sid32 sem1_id;
+  // Consumer semaphore
+  	sid32 sem2_id;
+
+  // head pointer to the stream linked list where consumer reads.
+  	struct data* head;
+
+  // tail pointer to the linked list where producer adds.
+  	struct data* tail;
+};
+
+struct fut_stream {
+	int32 stream_id;
+	// initialized to work_queue length
+	future** fut_queue;
+	// struct pair key;
+};
+
+struct data* read_queue(struct sem_stream* details);
+
+void write_queue(struct data* node, struct sem_stream* details);
+
+void sem_consumer(int32 out_time, struct sem_stream* obj);
+
+void sem_producer(struct data* node, struct sem_stream* details);
+
+void fut_consumer(int32 out_time, struct fut_stream* obj);
+
+void fut_producer(struct pair* node, struct fut_stream* details);
+
+int stream_proc( int32 nargs, char* args[]);
+
+int stream_proc_future( int32 nargs, char* args[]);

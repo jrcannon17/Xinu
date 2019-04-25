@@ -1,6 +1,6 @@
-#define n_input (sizeof (stream_input) / sizeof (const char *))
+//#define n_input (sizeof (stream_input) / sizeof (const char *))
 
-const char *stream_input[] = {\
+ extern const char *stream_input[] = {\
   "0\t10\t10",					\
   "0\t11\t11",					\
   "0\t12\t12",					\
