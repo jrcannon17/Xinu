@@ -24,6 +24,7 @@ const	struct	cmdent	cmdtab[] = {
 	{"sleep",	FALSE,	xsh_sleep},
 	{"hello",       FALSE,  xsh_hello},
        	{"prodcons",    FALSE,  xsh_prodcons},
+       	{"fstest",      FALSE,  xsh_fstest},  
 	{"run",         FALSE,  xsh_run},
 	{"uptime",	FALSE,	xsh_uptime}, 
 #ifdef GPIO

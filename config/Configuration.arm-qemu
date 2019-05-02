@@ -116,3 +116,4 @@ loopback:
 #define CLKFREQ      200000000	/* 200 MHz clock			*/
 
 #define	LF_DISK_DEV	RAM0
+#define FS TRUE

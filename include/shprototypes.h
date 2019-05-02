@@ -81,5 +81,9 @@ extern  shellcmd xsh_prodcons    (int32, char *[]);
 
 /* in file xsh_run.c */
 extern shellcmd xsh_run          (int32, char *[]);
+/* in file xsh_fstest.c */
+
+extern shellcmd xsh_fstest       (int32, char *[]);
+
 /* in file xsh_mmu.c */
 extern  shellcmd xsh_mmu	(int32, char *[]);

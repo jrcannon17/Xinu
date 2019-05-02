@@ -232,7 +232,7 @@ void fut_producer(struct pair* node, struct fut_stream* details){
 			i++;
 		}
 			kprintf("Produced %d    %d\n", node->time, node->value);
-  			future_set(details->fut_queue[i], node);
+  			//future_set(details->fut_queue[i], node);
   	return OK;
 }
 

@@ -37,7 +37,7 @@
 #include <delay.h>
 #include <stdio.h>
 #include <string.h>
-
+//#define FS TRUE
 #ifdef GPIO
 #include <gpio.h>
 #endif

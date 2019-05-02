@@ -1,0 +1,51 @@
+Assignment 6
+
+credit due:
+
+Colin Curry
+Stefan Borjeif 
+Rosemary Huff 
+
+all others, excused:
+
+explanation of function use 
+
+    fs_open
+
+a new spot in the root_dir is opened and the file is loaded into memory 
+into the inode table. For the new file entry, a new table is open in 
+which the state is FSTATE_OPEN. This calling process in turn
+points to the open file table entry and the fd is returned. 
+
+fs_close
+
+change the state to closed once found  (!=0) and is removed 
+from the table.
+
+    fs_create
+
+Access a free inode available to the file and/or directories 
+that need to be updated. fd will be used as oft[fd] to make calls to the file.
+The new file is then added to the file table.
+    
+fs_seek
+
+changes the seek pointer the new value (offset)
+
+fs_read
+
+assumes current block is 0 and reads n bytes/fsd.blocksize.
+The seeker pointer is associated with the file and should start where 
+the previous left off, though when ran, I am not entirely sure if this works since 
+I have not implemented my own test file, stop the process, and restart again. 
+    
+fs_write
+
+current block and total bytes are renitialized. Using, bs_bwrite, 
+we can write n amount of bytes  into a file from buffer memory. and works very similarly to read, updating pointer seeker in the process.
+
+Conclusion 
+
+Just like every other assignment in this course, I had to seek much help from various people I've met throughout my undergrad and 
+through this course. The file system reference for implementation was extremely helpful in understanding how this all works. The portion that compares the 
+n bytes with block size in the read and write portion were the most challenging for this assignment. 
